@@ -1,0 +1,20 @@
+﻿@model Review
+
+<h2>Add Review</h2>
+
+<form asp-action="Create">
+    <div>
+        <label asp-for="User.UserName">Your Name</label>
+        <input asp-for="User.UserName" />
+    </div>
+    <div>
+        <label asp-for="Comment">Comment</label>
+        <textarea asp-for="Comment"></textarea>
+    </div>
+    <div>
+        <label asp-for="Rating">Rating</label>
+        <input asp-for="Rating" type="number" min="1" max="5" />
+    </div>
+    <input asp-for="LocationId" type="hidden" />
+    <button type="submit">Submit</button>
+</form>

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Location>
+
+<h2>Locations</h2>
+
+<form asp-controller="Location" asp-action="Index" method="get">
+    <input type="search" name="searchString" placeholder="Search" />
+    <button type="submit">Search</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var location in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Details", "Location", new { id = location.Id })">@location.Name</a>
+                </td>
+                <td>@location.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
