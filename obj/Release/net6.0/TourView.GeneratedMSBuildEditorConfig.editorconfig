@@ -9,11 +9,11 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TourView
 build_property.RootNamespace = TourView
-build_property.ProjectDir = C:\Users\cilte\source\repos\TourView\
+build_property.ProjectDir = C:\Users\cilte\Source\Repos\TourView\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\cilte\source\repos\TourView
+build_property.MSBuildProjectDirectory = C:\Users\cilte\Source\Repos\TourView
 build_property._RazorSourceGeneratorDebug = 
 
 [C:/Users/cilte/source/repos/TourView/Areas/Identity/Pages/Account/Register.cshtml]
