@@ -1,11 +1,32 @@
 ﻿@model IEnumerable<Location>
 
-<h2>Locations</h2>
 
-<form asp-controller="Location" asp-action="Index" method="get">
-    <input type="search" name="searchString" placeholder="Search" />
-    <button type="submit">Search</button>
+<h2>Locations</h2>
+<form asp-action="Index" method="get">
+    <div class="form-group">
+        <label for="name">Search by name:</label>
+        <input type="text" name="name" value="@ViewData["CurrentName"]" />
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="description">Search by description:</label>
+        <input type="text" name="description" value="@ViewData["CurrentDescription"]" />
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="address">Search by address:</label>
+        <input type="text" name="address" value="@ViewData["CurrentAddress"]" />
+    </div>
+    <br />
+    <div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
 </form>
+
+<a asp-action="Index">Back to full list</a>
+<hr />
+
+
 
 <table class="table">
     <thead>
@@ -25,4 +46,6 @@
             </tr>
         }
     </tbody>
+
 </table>
+
