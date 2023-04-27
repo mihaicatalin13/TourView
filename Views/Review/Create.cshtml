@@ -1,15 +1,23 @@
 ﻿@model Review
+@{
+    string implicitUserId = "8e445865-a24d-4543-a6c6-9443d048cdb0";
+}
 
 <h2>Add Review</h2>
 
-<form asp-action="Create">
+
+<form method="post">
     <div>
-        <label asp-for="User.UserName">Your Name</label>
-        <input asp-for="User.UserName" />
+        <label asp-for="UserId" value="@implicitUserId">USER IMPLICIT VALUE @implicitUserId</label>
     </div>
+    <input asp-for="UserId" type="hidden"/>
+    <div>
+        <label asp-for="LocationId" value="@ViewBag.locationId">Location Id = @ViewBag.locationId</label>
+    </div>
+   
     <div>
         <label asp-for="Comment">Comment</label>
-        <textarea asp-for="Comment"></textarea>
+        <input asp-for="Comment" />
     </div>
     <div>
         <label asp-for="Rating">Rating</label>
@@ -17,4 +25,5 @@
     </div>
     <input asp-for="LocationId" type="hidden" />
     <button type="submit">Submit</button>
+    <a asp-controller="Review" asp-action="Index" asp-route-locationId="@ViewBag.locationId">Back to all reviews of {Location ID = @ViewBag.locationId}</a>
 </form>

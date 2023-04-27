@@ -22,26 +22,26 @@ namespace TourView.Controllers
 
         public async Task<IActionResult> Index(int locationId)
         {
-            var reviews = await _context.Reviews.Where(r => r.LocationId == locationId).ToListAsync();
+            IEnumerable<Review> reviews = await _context.Reviews.Where(r => r.LocationId == locationId).ToListAsync();               
+            ViewBag.locationId = locationId;
             return View(reviews);
         }
 
         public IActionResult Create(int locationId)
         {
-            return View(new Review { LocationId = locationId });
+            ViewBag.locationId = locationId;
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Review review)
+        public IActionResult Create(Review review)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(review);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", new { locationId = review.LocationId });
-            }
-            return View(review);
+            review.UserId = "8e445865-a24d-4543-a6c6-9443d048cdb0";
+            _context.Add(review);
+            _context.SaveChanges();
+            return RedirectToAction("Index", new { locationId = review.LocationId});
         }
     }
 }
+

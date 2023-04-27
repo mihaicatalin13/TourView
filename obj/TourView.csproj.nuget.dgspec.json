@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mihai\\Desktop\\TourView\\TourView\\TourView.csproj": {}
+    "C:\\Users\\Adi\\Desktop\\everything-fmi\\year2\\MDS\\TourView\\TourView.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mihai\\Desktop\\TourView\\TourView\\TourView.csproj": {
+    "C:\\Users\\Adi\\Desktop\\everything-fmi\\year2\\MDS\\TourView\\TourView.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mihai\\Desktop\\TourView\\TourView\\TourView.csproj",
+        "projectUniqueName": "C:\\Users\\Adi\\Desktop\\everything-fmi\\year2\\MDS\\TourView\\TourView.csproj",
         "projectName": "TourView",
-        "projectPath": "C:\\Users\\Mihai\\Desktop\\TourView\\TourView\\TourView.csproj",
-        "packagesPath": "C:\\Users\\Mihai\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mihai\\Desktop\\TourView\\TourView\\obj\\",
+        "projectPath": "C:\\Users\\Adi\\Desktop\\everything-fmi\\year2\\MDS\\TourView\\TourView.csproj",
+        "packagesPath": "C:\\Users\\Adi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Adi\\Desktop\\everything-fmi\\year2\\MDS\\TourView\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Mihai\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Adi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -82,6 +82,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.15, 6.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.15, 6.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.15, 6.0.15]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.15, 6.0.15]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -90,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
