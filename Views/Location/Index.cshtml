@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Location>
+
+
+<h2>Locations</h2>
+<form asp-action="Index" method="get">
+    <div class="form-group">
+        <label for="name">Search by name:</label>
+        <input type="text" name="name" value="@ViewData["CurrentName"]" />
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="description">Search by description:</label>
+        <input type="text" name="description" value="@ViewData["CurrentDescription"]" />
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="address">Search by address:</label>
+        <input type="text" name="address" value="@ViewData["CurrentAddress"]" />
+    </div>
+    <br />
+    <div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+<a asp-action="Index">Back to full list</a>
+<hr />
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var location in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Details", "Location", new { id = location.Id })">@location.Name</a>
+                </td>
+                <td>@location.Description</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

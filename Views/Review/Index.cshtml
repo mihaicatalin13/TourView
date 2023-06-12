@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Review>
+
+
+
+<h2>Reviews for {Location ID=@ViewBag.locationId}</h2>
+<br />
+<br />
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Comment</th>
+            <th>Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model)
+        {
+
+            <tr>
+                <td width="20%">@review.UserId</td>
+                <td width="70%">@review.Comment</td>
+                <td>@review.Rating/5</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<a asp-action="Create" asp-route-locationId="@ViewBag.locationId">Add Review</a>  
