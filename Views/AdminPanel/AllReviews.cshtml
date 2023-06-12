@@ -1,0 +1,30 @@
+﻿@model TourView.Models.MyViewModel
+@{
+    ViewData["Title"] = "Admin Panel - All Reviews";
+}
+
+<h3>All added reviews</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Comment</th>
+            <th>Rating</th>
+            <th>Loc. Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model.reviewsIEn)
+        {
+            <tr>
+                <td width="20%">@Model.usersIEn.First(u => u.Id == review.UserId)</td>
+                <td width="60%">@review.Comment</td>
+                <td>@review.Rating/5</td>
+                <td>@Model.locationsIEn.First(loc => loc.Id == review.LocationId).Name</td>
+                <td><a asp-controller="Review" asp-action="Delete" asp-route-reviewId="@review.Id">delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="AdminPanel" asp-action="Index" >Back to Overview</a>

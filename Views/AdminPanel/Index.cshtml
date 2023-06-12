@@ -1,0 +1,41 @@
+﻿@model TourView.Models.MyViewModel
+@{
+    ViewData["Title"] = "Admin Panel";
+    var revCount = 0;
+
+}
+<h1 class="text-center">Admin Panel Overview</h1>
+<h1>Hello @User.Identity?.Name</h1>
+<h3>Latest added reviews</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Comment</th>
+            <th>Rating</th>
+            <th>Loc. Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model.reviewsIEn)
+        {
+            if (revCount == 7)
+            {
+                break;
+            }
+            else
+            {
+                revCount += 1;
+            }
+            <tr>
+                <td width="20%">@Model.usersIEn.First(u => u.Id == review.UserId)</td>
+                <td width="60%">@review.Comment</td>
+                <td>@review.Rating/5</td>
+                <td>@Model.locationsIEn.First(loc => loc.Id == review.LocationId).Name</td>
+                <td><a asp-controller="Review" asp-action="Delete" asp-route-reviewId="@review.Id">delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="AdminPanel" asp-action="AllReviews">See all reviews</a>
