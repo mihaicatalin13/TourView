@@ -8,6 +8,7 @@ namespace TourView.Models
         public IEnumerable<Location>? locationsIEn;
         public IEnumerable<ApplicationUser>? usersIEn;
 
+
         public MyViewModel()
         {
         }
