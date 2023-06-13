@@ -34,9 +34,9 @@
             <tr>
                 <td width="20%">@Model.usersIEn.First(u => u.Id == review.UserId)</td>
                 <td width="60%">@review.Comment</td>
-                <td>@review.Rating/5</td>
-                <td>@Model.locationsIEn.First(loc => loc.Id == review.LocationId).Name</td>
-                <td><a asp-controller="Review" asp-action="Delete" asp-route-reviewId="@review.Id">delete</a></td>
+                <td >@review.Rating/5</td>
+                <td width="13%">@Model.locationsIEn.First(loc => loc.Id == review.LocationId).Name</td>
+                <td width="5%"><a asp-controller="Review" asp-action="Delete" asp-route-reviewId="@review.Id">delete</a></td>
             </tr>
         }
     </tbody>
@@ -50,7 +50,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Address</th>
-            <th>PhoneNumber</th>
+            <th>Phone</th>
             <th>Schedule</th>
             <th></th>
         </tr>
@@ -67,12 +67,12 @@
                 locCount += 1;
             }
             <tr>
-                <td width="18%">@location.Name</td>
+                <td width="20%">@location.Name</td>
                 <td width="40%">@location.Description</td>
-                <td width="14%">@location.Address</td>
-                <td width="14%">@location.PhoneNumber</td>
-                <td width="14%">@location.Schedule</td>
-                <td><a asp-controller="Location" asp-action="Delete" asp-route-locationId="@location.Id">delete</a></td>
+                <td width="13%">@location.Address</td>
+                <td width="10%">@location.PhoneNumber</td>
+                <td width="13%">@location.Schedule</td>
+                <td width="5%"><a asp-controller="Location" asp-action="Delete" asp-route-locationId="@location.Id">delete</a></td>
             </tr>
         }
     </tbody>

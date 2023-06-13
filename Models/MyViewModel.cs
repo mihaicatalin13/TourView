@@ -7,7 +7,7 @@ namespace TourView.Models
         public IEnumerable<Review>? reviewsIEn;
         public IEnumerable<Location>? locationsIEn;
         public IEnumerable<ApplicationUser>? usersIEn;
-
+        public DbSet<ApplicationUser>? users;
 
         public MyViewModel()
         {
