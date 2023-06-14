@@ -62,7 +62,8 @@ namespace TourView.Controllers
             {
                 return NotFound();
             }
-
+            string locationManager = _context.Users.Find(location.ManagerId).Id;
+            ViewBag.managerName = _context.Users.First(u => u.Id == locationManager).UserName;
             return View(location);
         }
 

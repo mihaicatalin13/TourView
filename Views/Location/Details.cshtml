@@ -1,5 +1,7 @@
 ﻿@model Location
-
+@{
+    ViewData["title"] = "TourView - Location Details";
+}
 @if (TempData.Peek("message") != null)
 {
     <div class="alert alert-info">
@@ -24,6 +26,15 @@
     <h4>Menu:</h4>
     <p>@Model.Menu</p>
 </div>
-
 <a asp-controller="Review" asp-action="Index" asp-route-locationId="@Model.Id">View Reviews</a>
-<a asp-controller="Reservation" asp-action="Index" asp-route-locationId="@Model.Id">Make a Reservation</a>
+@if (User.Identity.Name == ViewBag.managerName)
+{
+    <div></div>
+    <a asp-controller="Location" asp-action="Delete" asp-route-locationId="">Delete your location</a>
+    <a asp-controller="Location" asp-action="Edit" asp-route-locationId="">Edit Your Location</a>
+}
+else
+{
+    <a asp-controller="Reservation" asp-action="Index" asp-route-locationId="@Model.Id">Make a Reservation</a>
+}
+
