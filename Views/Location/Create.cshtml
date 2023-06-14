@@ -1,64 +1,52 @@
 ﻿@model TourView.Models.Location
 
-@{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Create</h2>
+<form method="post" action="/Location/Create">
+    <br />
+    <div class="card ">
+        <div class="card-header text-center" style="font-family: 'Trocchi', serif; font-size:30px">
+            Add your location
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                @Html.Label("Name","Give your location a name")
+                @Html.TextBox("Name", null, new { @class = "form-control " })
+                @Html.ValidationMessageFor(m => m.Name, null, new {@class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Description", "Describe your location")
+                @Html.TextArea("Description", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Description, null, new {@class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Address", "Address")
+                @Html.TextArea("Address", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Address, null, new {@class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("PhoneNumber", "Phone number")
+                @Html.TextArea("PhoneNumber", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PhoneNumber, null, new {@class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("Schedule", "Schedule")
+                @Html.TextArea("Schedule", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Schedule, null, new {@class = "text-danger" })
+                <br />
+                @Html.Label("Menu", "Menu")
+                @Html.TextArea("Menu", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Menu, null, new {@class = "text-danger" })
+                <br />
+                <br />
+                @Html.Label("PhotoUrl", "Photo")
+                @Html.TextArea("PhotoUrl", null, new { @class = "form-control" })
+                <br />
+                <br />
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+                    <button class="btn btn-outline-danger" style=" border-radius: 25px;" type="submit">Add</button>
+               
+            </blockquote>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Address" class="control-label"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="PhoneNumber" class="control-label"></label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Schedule" class="control-label"></label>
-        <input asp-for="Schedule" class="form-control" />
-        <span asp-validation-for="Schedule" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Menu" class="control-label"></label>
-        <input asp-for="Menu" class="form-control" />
-        <span asp-validation-for="Menu" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="PhotoUrl" class="control-label"></label>
-        <input asp-for="PhotoUrl" class="form-control" />
-        <span asp-validation-for="PhotoUrl" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Rating" class="control-label"></label>
-        <input asp-for="Rating" class="form-control" />
-        <span asp-validation-for="Rating" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
+
 </form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
