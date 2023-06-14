@@ -26,12 +26,20 @@
     <h4>Menu:</h4>
     <p>@Model.Menu</p>
 </div>
+@if (Model.PhotoUrl != null)
+{
+    <div>
+        <h4>Photo:</h4>
+        <img src="@Model.PhotoUrl" alt=" no photo yet" width="400px"/>
+    </div>
+}
 <a asp-controller="Review" asp-action="Index" asp-route-locationId="@Model.Id">View Reviews</a>
 @if (User.Identity.Name == ViewBag.managerName)
 {
     <div></div>
-    <a asp-controller="Location" asp-action="Delete" asp-route-locationId="">Delete your location</a>
-    <a asp-controller="Location" asp-action="Edit" asp-route-locationId="">Edit Your Location</a>
+    <a asp-controller="Location" asp-action="Edit" asp-route-Id="@Model.Id">Edit Your Location</a>
+    <a asp-controller="Location" asp-action="Delete" asp-route-Id="@Model.Id">Delete your location</a>
+    
 }
 else
 {

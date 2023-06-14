@@ -28,10 +28,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+                        @if (User.IsInRole("Editor"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Location" asp-action="Create">Add location</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Location" asp-action="Create">Your location</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin"))

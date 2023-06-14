@@ -10,52 +10,48 @@
     </div>
 }
 
-<form method="post" action="/Location/Create">
-    <br />
-    <div class="card ">
-        <div class="card-header text-center" style="font-family: 'Trocchi', serif; font-size:30px">
-            Add your location
-        </div>
-        <div class="card-body">
-            <blockquote class="blockquote mb-0">
-                @Html.Label("Name","Give your location a name")
-                @Html.TextBox("Name", null, new { @class = "form-control " })
-                @Html.ValidationMessageFor(m => m.Name, null, new {@class = "text-danger" })
-                <br />
-                <br />
-                @Html.Label("Description", "Describe your location")
-                @Html.TextArea("Description", null, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Description, null, new {@class = "text-danger" })
-                <br />
-                <br />
-                @Html.Label("Address", "Address")
-                @Html.TextArea("Address", null, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Address, null, new {@class = "text-danger" })
-                <br />
-                <br />
-                @Html.Label("PhoneNumber", "Phone number")
-                @Html.TextArea("PhoneNumber", null, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.PhoneNumber, null, new {@class = "text-danger" })
-                <br />
-                <br />
-                @Html.Label("Schedule", "Schedule")
-                @Html.TextArea("Schedule", null, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Schedule, null, new {@class = "text-danger" })
-                <br />
-                @Html.Label("Menu", "Menu")
-                @Html.TextArea("Menu", null, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Menu, null, new {@class = "text-danger" })
-                <br />
-                <br />
-                @Html.Label("PhotoUrl", "Photo")
-                @Html.TextArea("PhotoUrl", null, new { @class = "form-control" })
-                <br />
-                <br />
-
-                    <button class="btn btn-outline-danger" style=" border-radius: 25px;" type="submit">Add</button>
-               
-            </blockquote>
-        </div>
+<form method="post" enctype="multipart/form-data" asp-controller="Location" asp-action="Create">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Address">Address</label>
+        <input asp-for="Address" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="PhoneNumber">Phone Number</label>
+        <input asp-for="PhoneNumber" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Schedule">Schedule</label>
+        <input asp-for="Schedule" />
+        <span asp-validation-for="Schedule" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Menu">Menu</label>
+        <input asp-for="Menu" />
+        <span asp-validation-for="Menu" class="text-danger"></span>
+    </div>
+    <div>
+        <input class="form-control" type="file" name="locationImage" required />
     </div>
 
+    <button type="submit">Submit</button>
+    <a asp-controller="Home" asp-action="Index">Back to home</a>
 </form>
+@section Scripts
+    {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
