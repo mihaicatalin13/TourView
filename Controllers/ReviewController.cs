@@ -49,10 +49,13 @@ namespace TourView.Controllers
             review.User = user;
             review.UserId = user.Id;
             review.Location = _context.Locations.Find(review.LocationId);
-            _context.Add(review);
-            _context.SaveChanges();
-            return RedirectToAction("Index", new { locationId = review.LocationId });
-        
+            if (ModelState.IsValid)
+            {
+                _context.Add(review);
+                _context.SaveChanges();
+                return RedirectToAction("Index", new { locationId = review.LocationId });
+            }
+
             Location location = _context.Locations.First(loc => loc.Id == review.LocationId);
             ViewData["location"] = location.Name;
             return View(review);
@@ -83,13 +86,14 @@ namespace TourView.Controllers
             var id = reviewId;
             review.User = _context.Users.First(u => u.UserName == User.Identity.Name);
             review.Id = id;
+            if (ModelState.IsValid)
+            {
+                _context.Update(review);
+                _context.SaveChanges();
 
-            _context.Update(review);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index", new { locationId = review.LocationId });
-
-            //return RedirectToAction("Edit", new { reviewId = review.Id });
+                return RedirectToAction("Index", new { locationId = review.LocationId });
+            }
+            return View(review);
         }
 
         public async Task<IActionResult> Delete(int? reviewId)

@@ -26,3 +26,9 @@
     <button type="submit">Submit</button>
     <a asp-controller="Review" asp-action="Index" asp-route-locationId="@ViewData["locationId"]">Back to all reviews of @ViewData["location"]</a>
 </form>
+@section Scripts
+    {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
