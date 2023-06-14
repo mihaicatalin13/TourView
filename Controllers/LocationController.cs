@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -10,12 +11,17 @@ namespace TourView.Controllers
     public class LocationController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public LocationController(ApplicationDbContext context)
+        public LocationController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
+        RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
-
+    
         [HttpGet]
         [Authorize(Roles = "User, Editor, Admin")]
         public async Task<IActionResult> Index(string name, string? description, string? address)
@@ -64,23 +70,29 @@ namespace TourView.Controllers
         [Authorize(Roles = "Editor")]
         public IActionResult Create()
         {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Editor")]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Address,PhoneNumber,Schedule,Menu,PhotoUrl,Rating")] Location location)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(location);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+            Location location = new Location();
             return View(location);
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [Authorize(Roles = "Editor")]
+        public async Task<IActionResult> Create(Location location)
+        {
+            location.ManagerId = _userManager.GetUserId(User);
+            if (ModelState.IsValid)
+            {
+                _context.Locations.Add(location);
+                await _context.SaveChangesAsync();
+                TempData["message"] = "Location loaded";
+                return RedirectToAction(nameof(Index));
+            }
+            return View(location);
+
+            
+        }
+
+        
         [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int? id)
         {
