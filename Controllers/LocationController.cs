@@ -70,9 +70,23 @@ namespace TourView.Controllers
         [Authorize(Roles = "Editor")]
         public IActionResult Create()
         {
-            Location location = new Location();
-            return View(location);
+            string idManager = _userManager.GetUserId(User);
+            int locationExists = _context.Locations.Where(m => m.ManagerId == idManager).ToList().Count();
+            
+            if (locationExists > 0)
+            {
+                TempData["message"] = "You already have a location";
+                int idLoc = _context.Locations.FirstOrDefault(m => m.ManagerId == idManager)?.Id ?? 0;
+                return RedirectToAction("Details", "Location", new { id = idLoc });
+
+            }
+            else
+            {
+                Location location = new Location();
+                return View(location);
+            }
         }
+     
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
