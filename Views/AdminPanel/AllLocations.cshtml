@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Admin Panel - All Locations";
+}
+
+<h3>Latest added locations</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>PhoneNumber</th>
+            <th>Schedule</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var location in Model.locationsIEn)
+        {
+            <tr>
+                <td width="18%">@location.Name</td>
+                <td width="40%">@location.Description</td>
+                <td width="14%">@location.Address</td>
+                <td width="14%">@location.PhoneNumber</td>
+                <td width="14%">@location.Schedule</td>
+                <td><a asp-controller="Location" asp-action="Delete" asp-route-locationId="@location.Id">delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
