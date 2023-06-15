@@ -21,7 +21,8 @@ namespace TourView.Controllers
         {
             Review fiveStarRev;
             int fiveStarLocId;
-            Location location;
+            Location location; 
+            // Finding last 5 star review and getting the location that got it
             if (_context.Reviews.FirstOrDefault(r => r.Rating == 5) != null)
             {
                 fiveStarRev = _context.Reviews.OrderBy(rev => rev.Id).Last(rev => rev.Rating == 5);

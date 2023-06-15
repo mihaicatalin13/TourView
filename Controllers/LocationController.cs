@@ -32,7 +32,7 @@ namespace TourView.Controllers
             ViewData["CurrentDescription"] = description;
             ViewData["CurrentAddress"] = address;
             ViewBag.reviews = await _context.Reviews.ToListAsync();
-
+            // Logic for search bars
             var locations = from b in _context.Locations
                             select b;
             if (!String.IsNullOrEmpty(name))
@@ -67,8 +67,10 @@ namespace TourView.Controllers
             }
             MyViewModel mvm = new MyViewModel();
             mvm.location = location;
+            // Reservations needed for the notification of unseen reservations (for manager)
             mvm.reservationsIEn = _context.Reservations.Where(r => r.LocationId == location.Id)
                                                         .Where(r => r.ReservationDate > DateTime.Now);
+            // Checking if user is manager (the check is made in the view)
             string locationManager = _context.Users.First(u => u.Id == location.ManagerId).Id;
             ViewBag.managerName = _context.Users.First(u => u.Id == locationManager).UserName;
             return View(mvm);

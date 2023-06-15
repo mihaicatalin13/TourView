@@ -23,6 +23,7 @@ namespace TourView.Controllers
         public async Task<IActionResult> Index(int locationId)
         {
             DateTime now = DateTime.Now;
+            // Taking reservations for specific location + not earlier than current time/date
             var reservations = await _context.Reservations.Where(r => r.LocationId == locationId && r.ReservationDate > now).ToListAsync();
             MyViewModel mvm = new MyViewModel();
             mvm.reservationsIEn = reservations;

@@ -47,10 +47,10 @@ else
     <a asp-controller="Reservation" asp-action="Create" asp-route-locationId="@Model.location.Id">Make a Reservation</a>
 }
 
-@if (User.Identity.Name == ViewBag.managerName)
-{
+@if (User.Identity.Name == ViewBag.managerName) 
+{ // when opening details about your own location you get notified if you have unseen reservations | hNS gets the value of one (top of the view) because of unknown problems with bool in the js script
     <script>
-        if(@hNS == 1){
+        if(@hNS == 1){   
             alert("You have unseen reservations!");
         }
 

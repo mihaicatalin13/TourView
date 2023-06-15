@@ -23,14 +23,14 @@ namespace TourView.Controllers
         public async Task<IActionResult> Index()
         {
             MyViewModel mvm = new MyViewModel();
-
+            
             IEnumerable<ApplicationUser> users = await _context.Users.ToListAsync();
             mvm.usersIEn = users;
             IEnumerable<Location> locations = await _context.Locations.ToListAsync();
             mvm.locationsIEn = locations.Reverse();
             IEnumerable<Review> reviews = await _context.Reviews.ToListAsync();
             mvm.reviewsIEn = reviews.Reverse();
-
+            // Passing the three lists from the db, reverse() for showing latest ones ( reversing by id but they increment so it is still the latest)
             return View(mvm);
         }
         [Authorize(Roles = "Admin")]
@@ -43,18 +43,16 @@ namespace TourView.Controllers
             mvm.locationsIEn = locations.Reverse();
             IEnumerable<Review> reviews = await _context.Reviews.ToListAsync();
             mvm.reviewsIEn = reviews.Reverse();
+            //Same as Index => location and users are instead used to show the reviewed location and the reviewer
             return View(mvm);
         }
 
         public async Task<IActionResult> AllLocations()
         {
             MyViewModel mvm = new MyViewModel();
-            IEnumerable<ApplicationUser> users = await _context.Users.ToListAsync();
-            mvm.usersIEn = users;
             IEnumerable<Location> locations = await _context.Locations.ToListAsync();
             mvm.locationsIEn = locations.Reverse();
-            IEnumerable<Review> reviews = await _context.Reviews.ToListAsync();
-            mvm.reviewsIEn = reviews.Reverse();
+            // Reversed list for locations - latest locations
             return View(mvm);
         }
 
@@ -64,6 +62,7 @@ namespace TourView.Controllers
             IEnumerable<ApplicationUser> users = await _context.Users.ToListAsync();
             mvm.usersIEn = users;
             
+            //joining user, role and userid-roleid
             var userRoles = await _context.UserRoles.ToListAsync();
             var roles = await _context.Roles.ToListAsync();
             var userWithRoles = from userRole in userRoles
@@ -84,7 +83,7 @@ namespace TourView.Controllers
         public async Task<IActionResult> SetManager(string userId)
         {
             ApplicationUser user = await _context.Users.FindAsync(userId);
-            await _userManager.AddToRoleAsync(user, "Editor");    // Change to manager when manager is added
+            await _userManager.AddToRoleAsync(user, "Editor");    // Change to manager when manager is added // Update: manager is only for frontend, backend he is still considered "editor"
             return RedirectToAction("RolesPanel");
         }
 
