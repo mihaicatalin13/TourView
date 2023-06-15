@@ -29,6 +29,7 @@ namespace TourView.Controllers
             ViewData["CurrentName"] = name;
             ViewData["CurrentDescription"] = description;
             ViewData["CurrentAddress"] = address;
+            ViewBag.reviews = await _context.Reviews.ToListAsync();
 
             var locations = from b in _context.Locations
                             select b;
