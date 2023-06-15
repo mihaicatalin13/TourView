@@ -6,7 +6,7 @@ To be added
 * As a user, I want to be able to search a certain place by name/description/address 
 * As a user, I want to be able to see a list of locations and their rating 
 * As a user, I want to be able to see details about the place, such as address, phone number, schedule, menu, etc... 
-* As a user, I want to be able to see photos of the place to get an idea about the location and the ambiance. 
+* As a user, I want to be able to see photos of the places to get an idea about the location and the ambiance. 
 * As an user, I want to be able to give feedback to the place by both rating and commenting to help others pick the right place. 
 * As a user, I want to be able to read others’ reviews to get an idea about the place. 
 * As a user, I want to be able to delete or edit my review to keep it up to date. 
@@ -17,7 +17,7 @@ To be added
 * As an admin I want to be able to see all locations in one place, to make my search easier. 
 * As an admin, I need to be able to set other users as managers. 
 * As a manager, I want to be able to see reservations at my place. 
-* As a manager, I want to be able to add my place or update its description, photos, menu, etc... 
+* As a manager, I want to be able to add my place or update its description, photo, menu, etc... 
 * As a manager, I want to be able to delete my place in case I need to. 
 * As a manager, I want to be notified of new reservations. 
 ### Backlog
