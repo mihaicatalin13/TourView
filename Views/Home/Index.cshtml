@@ -1,8 +1,29 @@
-﻿@{
+﻿@model Location
+
+@{
     ViewData["Title"] = "Home Page";
+    Location location = Model;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Welcome to TourView!</h1>
+
+<br />
+<br />
+<h3>Latest 5 Star review</h3>
+@if (location != null)
+{
+    <h3><a href="@Url.Action("Details", "Location", new { id = location.Id })">@location.Name</a></h3>
+    <div>Address: @location.Address</div>
+    <div>Schedule: @location.Schedule</div>
+    <div>Menu: @location.Menu</div>
+    <br />
+    <div><span style="font-style: italic">"@ViewBag.review.Comment"</span> <span style="font-weight: bold">@ViewBag.review.Rating/5</span></div>
+    <div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; by @ViewBag.userName</div>
+    <br />
+
+    <img src=@location.PhotoUrl alt="">
+}
+else
+{
+    <div>I guess there is no 5 star rating... yet! Maybe you could be the one to add one ;)</div>
+}
