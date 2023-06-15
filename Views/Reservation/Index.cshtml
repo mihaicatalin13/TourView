@@ -1,14 +1,39 @@
-﻿@model IEnumerable<Reservation>
-
-<h2>Reservations</h2>
-
-@foreach (var reservation in Model)
-{
-    <div>
-        <h4>@reservation.User.UserName</h4>
-        <p>@reservation.ReservationDate</p>
-        <p>Number of Guests: @reservation.NumberOfGuests</p>
-    </div>
+﻿@model MyViewModel
+@{
+    ViewData["Title"] = "TourView - Reservations for Your Location";
 }
 
-<a asp-action="Create" asp-route-locationId="@ViewContext.RouteData.Values["locationId"]">Make a Reservation</a>
+<h2>Reservations for @ViewData["location"]</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Date</th>
+            <th>No. of Guests</th>
+            <th>Set as Seen</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var reservation in Model.reservationsIEn)
+    {
+            int locId = reservation.LocationId;
+            <tr>
+
+            <td>@Model.users.First(u => u.Id == reservation.UserId)</td>
+            <td>@reservation.ReservationDate</td>
+            <td>@reservation.NumberOfGuests</td>
+                @if (reservation.seen == true)
+                {
+                    <td>Already set</td>
+                }
+                else
+                {
+                    <td><a asp-controller="Reservation" asp-action="SetSeen" asp-route-Id="@reservation.Id">Set</a></td>
+                }
+                
+        </tr>
+    }
+    </tbody>
+
+</table>

@@ -4,12 +4,12 @@
 
 <form asp-action="Create">
     <div>
-        <label asp-for="User.UserName">Your Name</label>
-        <input asp-for="User.UserName" />
+        <label asp-for="LocationId" value="@ViewData["locationId"]" hidden></label>
     </div>
+    @ViewData["locationId"]
     <div>
         <label asp-for="ReservationDate">Date and Time</label>
-        <input asp-for="ReservationDate" type="datetime-local" />
+        <input asp-for="ReservationDate" type="datetime-local" id="reservationDateInput" />
     </div>
     <div>
         <label asp-for="NumberOfGuests">Number of Guests</label>
@@ -18,3 +18,23 @@
     <input asp-for="LocationId" type="hidden" />
     <button type="submit">Submit</button>
 </form>
+
+<script>
+    // Get the current date and time
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2);  // Month is zero-based
+    var day = ('0' + today.getDate()).slice(-2);
+    var hours = ('0' + today.getHours()).slice(-2);
+    var minutes = ('0' + today.getMinutes()).slice(-2);
+    var currentDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+
+    // Set the value of the input field to the current date and time
+    document.getElementById('reservationDateInput').value = currentDateTime;
+</script>
+@section Scripts
+    {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

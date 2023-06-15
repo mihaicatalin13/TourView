@@ -12,8 +12,8 @@ using TourView.Data;
 namespace TourView.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230614181211_addmig5")]
-    partial class addmig5
+    [Migration("20230614234052_ReservationMig")]
+    partial class ReservationMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -242,7 +242,7 @@ namespace TourView.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdMan")
+                    b.Property<string>("ManagerId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Menu")

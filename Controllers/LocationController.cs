@@ -13,13 +13,15 @@ namespace TourView.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private IWebHostEnvironment _env;
 
         public LocationController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager)
+        RoleManager<IdentityRole> roleManager, IWebHostEnvironment env)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
+            _env = env;
         }
 
         [HttpGet]
@@ -56,50 +58,66 @@ namespace TourView.Controllers
                 return NotFound();
             }
 
-            var location = await _context.Locations.FirstOrDefaultAsync(m => m.Id == id);
+            Location location = await _context.Locations.FirstOrDefaultAsync(m => m.Id == id);
 
             if (location == null)
             {
                 return NotFound();
             }
-
-            return View(location);
+            MyViewModel mvm = new MyViewModel();
+            mvm.location = location;
+            mvm.reservationsIEn = _context.Reservations.Where(r => r.LocationId == location.Id)
+                                                        .Where(r => r.ReservationDate > DateTime.Now);
+            string locationManager = _context.Users.First(u => u.Id == location.ManagerId).Id;
+            ViewBag.managerName = _context.Users.First(u => u.Id == locationManager).UserName;
+            return View(mvm);
         }
 
 
         [Authorize(Roles = "Editor")]
         public IActionResult Create()
         {
-            string idManager = _userManager.GetUserId(User);
-            int locationExists = _context.Locations.Where(m => m.ManagerId == idManager).ToList().Count();
-            
-            if (locationExists > 0)
+            string userId = _userManager.GetUserId(User);
+            try
             {
-                TempData["message"] = "You already have a location";
-                int idLoc = _context.Locations.FirstOrDefault(m => m.ManagerId == idManager)?.Id ?? 0;
-                return RedirectToAction("Details", "Location", new { id = idLoc });
+                int? loc = _context.Locations.First(l => l.ManagerId == userId).Id;
+                return RedirectToAction("Details", new { id = loc });
+            }
+            catch (Exception)
+            {
+                return View();
+            }          
 
-            }
-            else
-            {
-                Location location = new Location();
-                return View(location);
-            }
         }
      
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
         [Authorize(Roles = "Editor")]
-        public async Task<IActionResult> Create(Location location)
+        public async Task<IActionResult> Create(Location location, IFormFile locationImage)
         {
             location.ManagerId = _userManager.GetUserId(User);
-            if (ModelState.IsValid)
+            if (locationImage != null && locationImage.Length > 0)  
             {
-                _context.Locations.Add(location);
-                await _context.SaveChangesAsync();
-                TempData["message"] = "Location loaded";
-                return RedirectToAction(nameof(Index));
+                var storagePath = Path.Combine(
+                    _env.WebRootPath,
+                    "images",
+                    locationImage.FileName);
+                var databaseFileName = "/images/" + locationImage.FileName;
+                using(var fileStream = new FileStream(storagePath, FileMode.Create))
+                {
+                    await locationImage.CopyToAsync(fileStream);
+                }
+                location.PhotoUrl = databaseFileName;
+            }
+
+
+            if (ModelState.IsValid) 
+            {
+                
+                _context.Add(location);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
             return View(location);
 
@@ -110,39 +128,49 @@ namespace TourView.Controllers
         [Authorize(Roles = "Editor")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) { return NotFound(); }
-
-            var location = await _context.Locations.FindAsync(id);
-            if (location == null) { return NotFound(); }
-
-            return View(location);
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var locationFromDb = await _context.Locations.FirstOrDefaultAsync(loc => loc.Id == id);
+            if (locationFromDb == null)
+            {
+                return NotFound();
+            }
+            ViewData["locationId"] = id;
+            return View(locationFromDb);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Editor")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Address,PhoneNumber,Schedule,Menu,PhotoUrl,Rating")] Location location)
+        public async Task<IActionResult> EditPOST(int id, IFormFile locationImage, [Bind("Id,Name,Description,Address,PhoneNumber,Schedule,Menu,PhotoUrl,Rating")] Location location)
         {
-            if (id != location.Id) { return NotFound(); }
-
+            location.Id = id;
+            location.ManagerId = _context.Users.First(u => u.UserName == User.Identity.Name).Id;
+            if (locationImage.Length > 0)
+            {
+                var storagePath = Path.Combine(
+                    _env.WebRootPath,
+                    "images",
+                    locationImage.FileName);
+                var databaseFileName = "/images/" + locationImage.FileName;
+                using (var fileStream = new FileStream(storagePath, FileMode.Create))
+                {
+                    await locationImage.CopyToAsync(fileStream);
+                }
+                location.PhotoUrl = databaseFileName;
+            }
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(location);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LocationExists(location.Id)) { return NotFound(); }
-                    else { throw; }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(location);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View(location);
         }
 
-        [Authorize(Roles = "Editor")]
+        [Authorize(Roles = "Editor,Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) { return NotFound(); }
@@ -155,7 +183,7 @@ namespace TourView.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Editor")]
+        [Authorize(Roles = "Editor,Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var location = await _context.Locations.FindAsync(id);

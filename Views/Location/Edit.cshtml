@@ -2,11 +2,12 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var id = ViewData["locationId"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit</h2>
-<form asp-action="Edit">
+<form method="post" enctype="multipart/form-data" asp-action="EditPOST" asp-route-locationId="@id">
     <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
@@ -38,16 +39,10 @@
         <input asp-for="Menu" class="form-control" />
         <span asp-validation-for="Menu" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="PhotoUrl" class="control-label"></label>
-        <input asp-for="PhotoUrl" class="form-control" />
-        <span asp-validation-for="PhotoUrl" class="text-danger"></span>
+    <div>
+        <input class="form-control" type="file" name="locationImage" required />
     </div>
-    <div class="form-group">
-        <label asp-for="Rating" class="control-label"></label>
-        <input asp-for="Rating" class="form-control" />
-        <span asp-validation-for="Rating" class="text-danger"></span>
-    </div>
+
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />
     </div>
@@ -55,8 +50,9 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-@section Scripts {
+@section Scripts
+    {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <partial name="_ValidationScriptsPartial" />
     }
 }

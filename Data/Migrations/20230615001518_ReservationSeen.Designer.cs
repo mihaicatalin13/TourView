@@ -12,8 +12,8 @@ using TourView.Data;
 namespace TourView.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230423053530_test")]
-    partial class test
+    [Migration("20230615001518_ReservationSeen")]
+    partial class ReservationSeen
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -242,23 +242,26 @@ namespace TourView.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ManagerId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Menu")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Rating")
+                    b.Property<double?>("Rating")
                         .HasColumnType("float");
 
                     b.Property<string>("Schedule")
@@ -290,6 +293,9 @@ namespace TourView.Data.Migrations
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("seen")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
