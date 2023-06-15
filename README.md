@@ -21,7 +21,7 @@ Our ASP.NET MVC 6/C# website app is a comprehensive platform designed to empower
 * As a manager, I want to be notified of new reservations. 
 ### Backlog
 We kept track of what everyone was supposed to do by Assigning each other's work on a separate chat in Discord.
-![](https://github.com/mihaicatalin13/TourView/Docs/DiscordBacklog.jpg)
+![](https://github.com/mihaicatalin13/TourView/blob/main/Docs/DiscordBacklog.jpg)
 ### Features list
 - Create an account
 - See every location -> Review it or make a Reservation
@@ -29,8 +29,8 @@ We kept track of what everyone was supposed to do by Assigning each other's work
 - If you are an admin -> Delete any Locations or Reviews that are not following moral guidelines. Set users as managers
 ### An *intelligent* tool:
 During the creation of our app, we have used Chat GPT as a source for ideas, data and code. It helped us save time by generating simpler parts of our project on command.
-![](https://github.com/mihaicatalin13/TourView/Docs/gpt2.png)
-![](https://github.com/mihaicatalin13/TourView/Docs/gpt1.png)
-![](https://github.com/mihaicatalin13/TourView/Docs/gpt3.png)
+![](https://github.com/mihaicatalin13/TourView/blob/main/Docs/gpt2.png)
+![](https://github.com/mihaicatalin13/TourView/blob/main/Docs/gpt1.png)
+![](https://github.com/mihaicatalin13/TourView/blob/main/Docs/gpt3.png)
 ### UML Diagram
-![](https://github.com/mihaicatalin13/TourView/Docs/uml.jpeg)
+![](https://github.com/mihaicatalin13/TourView/blob/main/Docs/uml.jpeg)
