@@ -18,7 +18,15 @@
             <tr>
                 <td>@user.UserName</td>
                 <td>@user.UserId</td>
-                <td>@user.RoleName</td>
+                @if(user.RoleName == "Editor")
+                {
+                    <td>Manager</td>
+                }
+                else
+                {
+                    <td>@user.RoleName</td>
+                }
+                
                 @if(user.RoleName == "User")
                 {
                     <td><a asp-controller="AdminPanel" asp-action="SetManager" asp-route-userId="@user.UserId">Set as Manager</a></td>
