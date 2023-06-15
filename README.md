@@ -1,6 +1,6 @@
 # TourView
 Our ASP.NET MVC 6/C# website app is a comprehensive platform designed to empower users to explore and review various locations in their city. From hidden bars to exquisite and fancy restaurants, users can share their experiences and provide valuable feedback to the community. Additionally, the app enables users to make reservations at their favorite establishments, ensuring a convenient and seamless booking process. With its user-friendly interface and robust features, our app is the go-to destination for discovering, reviewing, and reserving locations in your city.
-##[App demo](www.google.com)
+## [App demo](www.google.com)
 ### User Stories
 * As a user, I want to be able to search a certain place by name/description/address 
 * As a user, I want to be able to see a list of locations and their rating 
