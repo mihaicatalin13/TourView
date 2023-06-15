@@ -9,7 +9,7 @@
 
 <br />
 <br />
-<h3>Latest 5 Star review</h3>
+<h3>Someone recommends this place! Take a look:</h3>
 @if (location != null)
 {
     <h3><a href="@Url.Action("Details", "Location", new { id = location.Id })">@location.Name</a></h3>
@@ -18,7 +18,7 @@
     <div>Menu: @location.Menu</div>
     <br />
     <div><span style="font-style: italic">"@ViewBag.review.Comment"</span> <span style="font-weight: bold">@ViewBag.review.Rating/5</span></div>
-    <div>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; by @ViewBag.userName</div>
+    <div class="text-center">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; by @ViewBag.userName</div>
     <br />
 
     <img src=@location.PhotoUrl alt="">
