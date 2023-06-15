@@ -58,15 +58,19 @@ namespace TourView.Controllers
                 return NotFound();
             }
 
-            var location = await _context.Locations.FirstOrDefaultAsync(m => m.Id == id);
+            Location location = await _context.Locations.FirstOrDefaultAsync(m => m.Id == id);
 
             if (location == null)
             {
                 return NotFound();
             }
+            MyViewModel mvm = new MyViewModel();
+            mvm.location = location;
+            mvm.reservationsIEn = _context.Reservations.Where(r => r.LocationId == location.Id)
+                                                        .Where(r => r.ReservationDate > DateTime.Now);
             string locationManager = _context.Users.First(u => u.Id == location.ManagerId).Id;
             ViewBag.managerName = _context.Users.First(u => u.Id == locationManager).UserName;
-            return View(location);
+            return View(mvm);
         }
 
 
@@ -79,7 +83,7 @@ namespace TourView.Controllers
                 int? loc = _context.Locations.First(l => l.ManagerId == userId).Id;
                 return RedirectToAction("Details", new { id = loc });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View();
             }          

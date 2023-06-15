@@ -1,45 +1,62 @@
-﻿@model Location
+﻿@model MyViewModel
 @{
     ViewData["title"] = "TourView - Location Details";
+    bool hasNotSeen = Model.reservationsIEn.Any(entry => entry.seen != true);
+    var hNS = 0;
+    if (hasNotSeen)
+    {
+        hNS = 1;
+    }
 }
-
-<h2>@Model.Name</h2>
+<h2>@Model.location.Name</h2>
 
 <div>
     <h4>Address:</h4>
-    <p>@Model.Address</p>
+    <p>@Model.location.Address</p>
 </div>
 <div>
     <h4>Phone Number:</h4>
-    <p>@Model.PhoneNumber</p>
+    <p>@Model.location.PhoneNumber</p>
 </div>
 <div>
     <h4>Schedule:</h4>
-    <p>@Model.Schedule</p>
+    <p>@Model.location.Schedule</p>
 </div>
 <div>
     <h4>Menu:</h4>
-    <p>@Model.Menu</p>
+    <p>@Model.location.Menu</p>
 </div>
-@if (Model.PhotoUrl != null)
+@if (Model.location.PhotoUrl != null)
 {
     <div>
         <h4>Photo:</h4>
-        <img src="@Model.PhotoUrl" alt=" no photo yet" width="400px"/>
+        <img src="@Model.location.PhotoUrl" alt=" no photo yet" width="400px" />
     </div>
 }
-<a asp-controller="Review" asp-action="Index" asp-route-locationId="@Model.Id">View Reviews</a>
+<a asp-controller="Review" asp-action="Index" asp-route-locationId="@Model.location.Id">View Reviews</a>
 @if (User.Identity.Name == ViewBag.managerName)
 {
     <div></div>
-    <a asp-controller="Reservation" asp-action="Index" asp-route-locationId="@Model.Id">View Reservations for Your Location</a>
+    <a asp-controller="Reservation" asp-action="Index" asp-route-locationId="@Model.location.Id">View Reservations for Your Location</a>
     <div></div>
-    <a asp-controller="Location" asp-action="Edit" asp-route-Id="@Model.Id">Edit Your Location</a>
-    <a asp-controller="Location" asp-action="Delete" asp-route-Id="@Model.Id">Delete Your Location</a>
-    
+    <a asp-controller="Location" asp-action="Edit" asp-route-Id="@Model.location.Id">Edit Your Location</a>
+    <a asp-controller="Location" asp-action="Delete" asp-route-Id="@Model.location.Id">Delete Your Location</a>    
 }
 else
 {
-    <a asp-controller="Reservation" asp-action="Create" asp-route-locationId="@Model.Id">Make a Reservation</a>
+    <a asp-controller="Reservation" asp-action="Create" asp-route-locationId="@Model.location.Id">Make a Reservation</a>
 }
+
+@if (User.Identity.Name == ViewBag.managerName)
+{
+    <script>
+        if(@hNS == 1){
+            alert("You have unseen reservations!");
+        }
+
+
+    </script>
+}
+
+
 
