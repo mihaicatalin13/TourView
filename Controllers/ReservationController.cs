@@ -22,26 +22,40 @@ namespace TourView.Controllers
 
         public async Task<IActionResult> Index(int locationId)
         {
-            var reservations = await _context.Reservations.Where(r => r.LocationId == locationId).ToListAsync();
-            return View(reservations);
+            DateTime now = DateTime.Now;
+            var reservations = await _context.Reservations.Where(r => r.LocationId == locationId && r.ReservationDate > now).ToListAsync();
+            MyViewModel mvm = new MyViewModel();
+            mvm.reservationsIEn = reservations;
+            mvm.users = _context.Users;
+            ViewData["location"] = _context.Locations.Find(locationId).Name;
+            return View(mvm);
         }
 
         public IActionResult Create(int locationId)
         {
-            return View(new Reservation { LocationId = locationId });
+            ViewData["locationId"] = locationId;
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Reservation reservation)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(reservation);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", new { locationId = reservation.LocationId });
-            }
-            return View(reservation);
+            reservation.UserId = _userManager.GetUserId(User);
+
+            _context.Add(reservation);
+            _context.SaveChanges();
+            return RedirectToAction("Details","Location", new { Id = reservation.LocationId });
+
+        }
+
+        public IActionResult SetSeen(int Id) 
+        {
+            int tempId = Id;
+            var reservation = _context.Reservations.FirstOrDefault(r => r.Id == tempId);
+            reservation.seen = true;
+            _context.SaveChanges();
+            return RedirectToAction("Index", new { locationId = reservation.LocationId});
         }
     }
 }

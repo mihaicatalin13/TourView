@@ -292,6 +292,9 @@ namespace TourView.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("seen")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");
